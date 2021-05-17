@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block content %}
+    <div class="container">
+    <h1>TCI ENGINNEERING</h1>
+        <div class="row">
+            <div class="col-md-12" style="display: flex;justify-content: space-between;">
+                <div class="card border-info mb-3">
+                    <div class="card-header">Lien rapide</div>
+                        <div class="card-body">
+                        <h4 class="card-title">Documents</h4>
+                        <p class="card-text">
+                            <a href="{{ url_for('static',filename='TCI_Logo.png') }}" class="nav-link active">Dictionnaire de données</a>
+                            <a href="{{ url_for('static',filename='MCD_visio.jpg') }}" class="nav-link active">MCD</a>
+                            <a href="{{ url_for('static',filename='MLD_visio.jpg') }}" class="nav-link active">MLD</a>
+                            <a href="#" class="nav-link active">Finances </a>
+                            <a href="#" class="nav-link active">RH</a>
+                            <a href="#" class="nav-link active">Cartographie de l'organisation</a>
+                        </p>
+                    </div>
+                </div>
+                <div class="card border-dark mb-3" style="min-width:20rem;max-width: 25rem;">
+                  <div class="card-header">BADGEUSE</div>
+                      <div class="card-body">
+                        <h4 class="card-title">Timbrage</h4>
+                        <p class="card-text">Temps effectué : 04:54<br>Temps de pause : 00:33<br>Soldes heures à hier : 08:49</p>
+                          <br>
+                            <input type="checkbox" id="_checkbox">
+                            <label for="_checkbox">
+                                <div id="tick_mark"></div>
+                            </label>
+                      </div>
+                  </div>
+            </div>
+            <div class="col-md-12" style="display: flex;justify-content:center;">
+                <div class="card border-success mb-3">
+                      <div class="card-header">A lire</div>
+                      <div class="card-body">
+                        <h4 class="card-title">Infos pour Maccaud</h4>
+                        <p class="card-text">Je vous présente mon projet pour le module 104. Il n'est pas fini mais je vais le continuer après les examens. Pour peut-être pouvoir le vendre !<br>Bonne visite !</p>
+                      </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+    var checkoutHistory = document.getElementById('_checkbox');
+    checkoutHistory.onchange = function() {
+    console.log(checkoutHistory);
+        if (checkoutHistory.checked) {
+            alert("Bon travail ! ");
+        } else {
+            alert("Bonne pause ! ");
+        }
+    }
+    </script>
+{% endblock %}

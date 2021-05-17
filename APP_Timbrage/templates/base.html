@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='home.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='bootstrap.min.css') }}">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</head>
+{% block header %} {% endblock %}
+<body style="background-repeat: no-repeat;">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <div class="container">
+        <a class="navbar-brand" href="#"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item dropdown">
+              <a class="nav-link active" href="{{ url_for('homepage') }}">Accueil</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="{{ url_for('collaborateur_afficher', order_by='ASC', id_collaborateur_sel=0) }}">Collaborateur</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="{{ url_for('details_collaborateurs_afficher', id_details_collaborateurs_sel=0) }}">Details/Collaborateur</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="{{ url_for('identification_afficher', order_by='ASC', id_identification_sel=0) }}">Identification</a>
+            </li>
+          </ul>
+          <form class="d-flex" id="form2">
+            <input class="form-control me-sm-2" type="text" id="search" placeholder="Rechercher">
+            <input class="btn btn-secondary my-2 my-sm-0" type="button" id="submit_form" value="Rechercher" onclick="checkInput()">
+          </form>
+        </div>
+      </div>
+    </nav>
+    {% block content %}{% endblock %}
+
+    {% block javascript %}
+        <script>
+        function checkInput() {
+                    var query = document.getElementById('search').value;
+                    window.find(query);
+                    return true;
+                }
+        </script>
+    {% endblock %}
+    {% include 'footer.html' %}
+</body>
+</html>
