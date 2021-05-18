@@ -19,6 +19,13 @@
 						{% endfor %}
 					</p>
                     <p>
+                        Mot de passe : <br>
+						{{ form.mot_de_passe_wtf(size=32) }}<br>
+						{% for error in form.mot_de_passe_wtf.errors %}
+							<span style="color: red;">[{{ error }}]</span>
+						{% endfor %}
+					</p>
+                    <p>
                         Courriel : <br>
 						{{ form.courriel_wtf(size=32) }}<br>
 						{% for error in form.courriel_wtf.errors %}

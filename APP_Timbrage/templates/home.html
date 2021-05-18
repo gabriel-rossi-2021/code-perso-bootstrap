@@ -6,7 +6,7 @@
     <div class="container">
     <h1>TCI ENGINNEERING</h1>
         <div class="row">
-            <div class="col-md-12" style="display: flex;justify-content: space-between;">
+            <div class="col-md-12" style="display: flex;justify-content: space-between;flex-wrap: wrap;flex-direction: row;">
                 <div class="card border-info mb-3">
                     <div class="card-header">Lien rapide</div>
                         <div class="card-body">
@@ -17,7 +17,7 @@
                             <a href="{{ url_for('static',filename='MLD_visio.jpg') }}" class="nav-link active">MLD</a>
                             <a href="#" class="nav-link active">Finances </a>
                             <a href="#" class="nav-link active">RH</a>
-                            <a href="#" class="nav-link active">Cartographie de l'organisation</a>
+                            <a href="#" class="nav-link active">Calendrier de l'équipe</a>
                         </p>
                     </div>
                 </div>
@@ -25,17 +25,53 @@
                   <div class="card-header">BADGEUSE</div>
                       <div class="card-body">
                         <h4 class="card-title">Timbrage</h4>
-                        <p class="card-text">Temps effectué : 04:54<br>Temps de pause : 00:33<br>Soldes heures à hier : 08:49</p>
-                          <br>
+                          <table class="table table-hover">
+                            {% if data %}
+                                <head>
+                                      <tr class="table-dark">
+                                        <th class="align-middle">
+                                            Temps effectué :
+                                        </th>
+                                        <th class="align-middle">
+                                            Temps de pause :
+                                        </th>
+                                        <th class="align-middle">
+                                            Soldes heures à hier :
+                                        </th>
+                                    </tr>
+                                 </head>
+                            {% endif %}
+                            {% for row in data %}
+                                <tbody>
+                                    <tr class="table-dark">
+                                        <td class="align-middle">
+                                            {{ row.date_et_heure_horaires }}
+                                        </td>
+                                        <td class="align-middle">
+                                            {{ row.date_et_heure_horaires }}
+                                        </td>
+                                        <td class="align-middle">
+                                            {{ row.date_et_heure_horaires}}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                {% else %}
+                                <tbody>
+                                    <tr class="table-dark">
+                                        <td>
+                                            Aucun timbrage.
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            {% endfor %}
+                        </table>
                             <input type="checkbox" id="_checkbox">
-                            <label for="_checkbox">
+                            <label style="margin-left: 3rem;" for="_checkbox">
                                 <div id="tick_mark"></div>
                             </label>
                       </div>
-                  </div>
-            </div>
-            <div class="col-md-12" style="display: flex;justify-content:center;">
-                <div class="card border-success mb-3">
+                </div>
+                <div class="card border-success mb-3" style="margin: 0 auto;">
                       <div class="card-header">A lire</div>
                       <div class="card-body">
                         <h4 class="card-title">Infos pour Maccaud</h4>

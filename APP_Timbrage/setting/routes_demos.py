@@ -9,8 +9,3 @@ from APP_Timbrage import obj_mon_application
 from APP_Timbrage.erreurs.msg_erreurs import *
 from APP_Timbrage.erreurs.exceptions import *
 from flask import url_for
-
-
-@obj_mon_application.route('/homepage')
-def homepage():
-    return render_template("home.html")

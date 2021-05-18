@@ -77,7 +77,7 @@ def collaborateur_afficher(order_by, id_collaborateur_sel):
                 else:
                     # Dans tous les autres cas, c'est que la table "t_genre" est vide.
                     # OM 2020.04.09 La ligne ci-dessous permet de donner un sentiment rassurant aux utilisateurs.
-                    flash(f"Données collaborateur affichés !!", "success")
+                    flash(f"Données collaborateur affichés !!", "primary")
 
         except Exception as erreur:
             print(f"RGG Erreur générale.")
@@ -119,7 +119,7 @@ def collaborateur_ajouter_wtf():
                 with MaBaseDeDonnee() as mconn_bd:
                     mconn_bd.mabd_execute(strsql_insert_genre, valeurs_insertion_dictionnaire)
 
-                flash(f"Données insérées !!", "success")
+                flash(f"Données insérées !!", "info")
                 print(f"Données insérées !!")
                 print(f"Données insérées !!")
 
@@ -197,7 +197,7 @@ def collaborateur_update_wtf():
             with MaBaseDeDonnee() as mconn_bd:
                 mconn_bd.mabd_execute(str_sql_update_nomcollaborateur, valeur_update_dictionnaire)
 
-            flash(f"Donnée mise à jour !!", "success")
+            flash(f"Donnée mise à jour !!", "info")
             print(f"Donnée mise à jour !!")
 
             # afficher et constater que la donnée est mise à jour.
@@ -279,7 +279,7 @@ def collaborateur_delete_wtf():
                     mconn_bd.mabd_execute(str_sql_delete_films_genre, valeur_delete_dictionnaire)
                     mconn_bd.mabd_execute(str_sql_delete_idgenre, valeur_delete_dictionnaire)
 
-                flash(f"Genre définitivement effacé !!", "success")
+                flash(f"Genre définitivement effacé !!", "info")
                 print(f"Genre définitivement effacé !!")
 
                 # afficher les données

@@ -75,7 +75,7 @@ def details_collaborateurs_afficher(id_details_collaborateurs_sel):
                     # Si l'utilisateur change l'id_film dans l'URL et qu'il ne correspond à aucun film
                     flash(f"Le film {id_details_collaborateurs_sel} demandé n'existe pas !!", "warning")
                 else:
-                    flash(f"Données colllaborateur et details affichés !!", "success")
+                    flash(f"Données colllaborateur et details affichés !!", "primary")
 
         except Exception as Exception_films_genres_afficher:
             code, msg = Exception_films_genres_afficher.args

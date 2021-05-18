@@ -12,7 +12,7 @@ from flask import render_template
 from flask import request
 from flask import session
 from flask import url_for
-
+import hashlib
 from APP_Timbrage import obj_mon_application
 from APP_Timbrage.database.connect_db_context_manager import MaBaseDeDonnee
 from APP_Timbrage.erreurs.exceptions import *
@@ -47,7 +47,7 @@ def identification_afficher(order_by, id_identification_sel):
 
             with MaBaseDeDonnee().connexion_bd.cursor() as mc_afficher:
                 if order_by == "ASC" and id_identification_sel == 0:
-                    strsql_identification_afficher = """SELECT id_identification, nom_utilisateur, courriel FROM t_identification ORDER BY id_identification ASC"""
+                    strsql_identification_afficher = """SELECT id_identification, nom_utilisateur,mot_de_passe, courriel FROM t_identification ORDER BY id_identification ASC"""
                     mc_afficher.execute(strsql_identification_afficher)
                 elif order_by == "ASC":
                     # C'EST LA QUE VOUS ALLEZ DEVOIR PLACER VOTRE PROPRE LOGIQUE MySql
@@ -56,11 +56,11 @@ def identification_afficher(order_by, id_identification_sel):
                     # donc, je précise les champs à afficher
                     # Constitution d'un dictionnaire pour associer l'id du genre sélectionné avec un nom de variable
                     valeur_id_identification_selected_dictionnaire = {"value_id_identification_selected": id_identification_sel}
-                    strsql_identification_afficher = """SELECT id_identification, nom_utilisateur, courriel FROM t_identification WHERE id_identification= %(value_id_identification_selected)s"""
+                    strsql_identification_afficher = """SELECT id_identification, nom_utilisateur,mot_de_passe, courriel FROM t_identification WHERE id_identification= %(value_id_identification_selected)s"""
 
                     mc_afficher.execute(strsql_identification_afficher, valeur_id_identification_selected_dictionnaire)
                 else:
-                    strsql_identification_afficher = """SELECT id_identification, nom_utilisateur, courriel FROM t_identification ORDER BY id_identification DESC"""
+                    strsql_identification_afficher = """SELECT id_identification, nom_utilisateur,mot_de_passe,courriel FROM t_identification ORDER BY id_identification DESC"""
 
                     mc_afficher.execute(strsql_identification_afficher)
 
@@ -77,7 +77,7 @@ def identification_afficher(order_by, id_identification_sel):
                 else:
                     # Dans tous les autres cas, c'est que la table "t_genre" est vide.
                     # OM 2020.04.09 La ligne ci-dessous permet de donner un sentiment rassurant aux utilisateurs.
-                    flash(f"Données collaborateur affichés !!", "success")
+                    flash(f"Données d'identifiactions affichés !!", "primary")
 
         except Exception as erreur:
             print(f"RGG Erreur générale.")
@@ -126,22 +126,27 @@ def identification_ajouter_wtf():
 
             if form.validate_on_submit():
                 nom_utilisateur_identification_wtf = form.nom_utilisateur_wtf.data
+                mot_de_passe_identification_wtf = form.mot_de_passe_wtf.data
                 courriel_identificaiton_wtf = form.courriel_wtf.data
 
                 nom_utilisateur_identification = nom_utilisateur_identification_wtf.capitalize()
+                mot_de_passe_identification = mot_de_passe_identification_wtf.lower()
                 courriel_identificaiton = courriel_identificaiton_wtf.lower()
 
                 valeurs_insertion_dictionnaire = {"value_nom_utilisateur": nom_utilisateur_identification,
-                                                  "value_courriel": courriel_identificaiton}
+                                                  "value_courriel": courriel_identificaiton,
+                                                    "value_mot_de_passe" : mot_de_passe_identification}
 
+                # ligne pour hasher le mdp
+                # hs = hashlib.sha256(password.encode("utf-8")).hexdigest()
 
                 print("valeurs_insertion_dictionnaire ", valeurs_insertion_dictionnaire)
 
-                strsql_insert_genre = """INSERT INTO t_identification (id_identification,nom_utilisateur,mot_de_passe,courriel) VALUES (NULL,%(value_nom_utilisateur)s,0,%(value_courriel)s)"""
+                strsql_insert_genre = """INSERT INTO t_identification (id_identification,nom_utilisateur,mot_de_passe,courriel) VALUES (NULL,%(value_nom_utilisateur)s,%(value_mot_de_passe)s,%(value_courriel)s)"""
                 with MaBaseDeDonnee() as mconn_bd:
                     mconn_bd.mabd_execute(strsql_insert_genre, valeurs_insertion_dictionnaire)
 
-                flash(f"Données insérées !!", "success")
+                flash(f"Données insérées !!", "info")
                 print(f"Données insérées !!")
                 print(f"Données insérées !!")
 
@@ -218,7 +223,7 @@ def identification_update_wtf():
             with MaBaseDeDonnee() as mconn_bd:
                 mconn_bd.mabd_execute(str_sql_update_nom_utilisateur, valeur_update_dictionnaire)
 
-            flash(f"Donnée mise à jour !!", "success")
+            flash(f"Donnée mise à jour !!", "info")
             print(f"Donnée mise à jour !!")
 
             # afficher et constater que la donnée est mise à jour.
@@ -315,7 +320,7 @@ def identification_delete_wtf():
                     mconn_bd.mabd_execute(str_sql_delete_films_genre, valeur_delete_dictionnaire)
                     mconn_bd.mabd_execute(str_sql_delete_idgenre, valeur_delete_dictionnaire)
 
-                flash(f"Identification définitivement effacé !!", "success")
+                flash(f"Identification définitivement effacé !!", "info")
                 print(f"Identification définitivement effacé !!")
 
                 # afficher les données

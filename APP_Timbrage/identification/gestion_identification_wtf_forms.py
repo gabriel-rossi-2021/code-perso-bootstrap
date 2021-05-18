@@ -23,6 +23,14 @@ class FormWTFAjouterCollaborateur(FlaskForm):
                                                                                   "d'espace à double, de double "
                                                                                   "apostrophe, de double trait union")
                                                                    ])
+    mot_de_passe_regexp = "^([A-Z]|[a-zÀ-ÖØ-öø-ÿ])[A-Za-zÀ-ÖØ-öø-ÿ]*['\- ]?[A-Za-zÀ-ÖØ-öø-ÿ]+$"
+    mot_de_passe_wtf = StringField("Clavioter le mot de passe ", validators=[Length(min=2, max=20, message="min 2 max 20"),
+                                                                   Regexp(mot_de_passe_regexp,
+                                                                          message="Pas de chiffres, de caractères "
+                                                                                  "spéciaux, "
+                                                                                  "d'espace à double, de double "
+                                                                                  "apostrophe, de double trait union")
+                                                                   ])
     courriel_regexp = "^(\w|\.|\_|\-)+[@](\w|\_|\-|\.)+[.]\w{2,3}$"
     courriel_wtf = StringField("Taper l'adresse email ",
                              validators=[Length(min=2, max=255, message="min 2 max 255"),

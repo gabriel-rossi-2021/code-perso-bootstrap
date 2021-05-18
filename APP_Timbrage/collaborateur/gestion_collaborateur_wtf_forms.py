@@ -75,6 +75,6 @@ class FormWTFDeleteGenre(FlaskForm):
     """
     nom_collaborateur_delete_wtf = StringField("Effacer ce collaborateur")
     prenom_collaborateur_delete_wtf = StringField("")
-    submit_btn_del = SubmitField("Effacer genre")
+    submit_btn_del = SubmitField("Effacer ce collaborateur")
     submit_btn_conf_del = SubmitField("Etes-vous sur d'effacer ?")
     submit_btn_annuler = SubmitField("Annuler")

@@ -3,14 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}{% endblock %}</title>
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static',filename='icon.png') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='home.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='bootstrap.min.css') }}">
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </head>
-{% block header %} {% endblock %}
+
+
 <body style="background-repeat: no-repeat;">
+{% block header %} {% endblock %}
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
       <div class="container">
         <a class="navbar-brand" href="#"></a>
@@ -20,7 +23,7 @@
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
           <ul class="navbar-nav me-auto">
             <li class="nav-item dropdown">
-              <a class="nav-link active" href="{{ url_for('homepage') }}">Accueil</a>
+              <a class="nav-link active" href="{{ url_for('homepage', order_by='ASC', id_horaire_sel=1) }}">Accueil</a>
             </li>
             <li class="nav-item">
               <a class="nav-link active" href="{{ url_for('collaborateur_afficher', order_by='ASC', id_collaborateur_sel=0) }}">Collaborateur</a>
@@ -39,6 +42,9 @@
         </div>
       </div>
     </nav>
+
+    {% include 'flash_messages.html' %}
+
     {% block content %}{% endblock %}
 
     {% block javascript %}

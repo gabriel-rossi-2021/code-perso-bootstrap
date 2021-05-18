@@ -74,5 +74,7 @@ from APP_Timbrage.login import login
 
 from APP_Timbrage.details_collaborateurs import gestion_details_collaborateurs_crud
 
+from APP_Timbrage.horaire import gestion_horaire_crud
+
 from APP_Timbrage.setting import routes_demos
 from APP_Timbrage.erreurs import msg_avertissements
